@@ -32,19 +32,30 @@ export class VacancyService {
     return Date.now().toString(); // Generate a simple unique ID based on the current timestamp
   }
 
-  updateVacancy(
-    companyId: string,
-    vacancy: Partial<Vacancy>
-  ): Observable<Company> {
-    return this.http.put<Company>(
-      `${this.apiUrl}/${companyId}/vacancies/${vacancy.id}`,
-      vacancy
+  updateVacancy(companyId: string, vacancy: Vacancy): Observable<Company> {
+    return this.http.get<Company>(`${this.apiUrl}/${companyId}`).pipe(
+      map((company: Company) => {
+        const index = company.vacancies?.findIndex(v => v.id === vacancy.id);
+        if (index !== undefined && index > -1) {
+          company.vacancies[index] = {...company.vacancies[index], ...vacancy};
+        }
+        return company;
+      }),
+      switchMap((updatedCompany: Company) =>
+        this.http.put<Company>(`${this.apiUrl}/${companyId}`, updatedCompany)
+      )
     );
   }
 
   deleteVacancy(companyId: string, vacancyId: string): Observable<Company> {
-    return this.http.delete<Company>(
-      `${this.apiUrl}/${companyId}/vacancies/${vacancyId}`
+    return this.http.get<Company>(`${this.apiUrl}/${companyId}`).pipe(
+      map((company: Company) => {
+        company.vacancies = company.vacancies?.filter(vacancy => vacancy.id !== vacancyId);
+        return company;
+      }),
+      switchMap((updatedCompany: Company) =>
+        this.http.put<Company>(`${this.apiUrl}/${companyId}`, updatedCompany)
+      )
     );
   }
 }

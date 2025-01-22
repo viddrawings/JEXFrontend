@@ -78,7 +78,7 @@ export class BackofficeEmployeeViewComponent implements OnInit {
     this.companyService.createCompany(company).subscribe({
       next: () => {
         this.loadCompanies();
-        console.log('Company added successfully.');
+        alert('Company added successfully.');
       },
       error: (err) => console.error('Failed to add company', err),
     });
@@ -88,7 +88,7 @@ export class BackofficeEmployeeViewComponent implements OnInit {
     this.companyService.updateCompany(company).subscribe({
       next: () => {
         this.loadCompanies();
-        console.log('Company updated successfully.');
+        alert('Company updated successfully.');
       },
       error: (err) => console.error('Failed to update company', err),
     });
@@ -98,15 +98,13 @@ export class BackofficeEmployeeViewComponent implements OnInit {
     this.companyService.deleteCompany(company.id).subscribe({
       next: () => {
         this.loadCompanies();
-        console.log('Company deleted successfully.');
+        alert('Company deleted successfully.');
       },
       error: (err) => console.error('Failed to delete company', err),
     });
   }
 
-
   openVacancyDialog(company: Company, vacancy?: Vacancy): void {
-    console.log(company.id);
     const dialogRef = this.dialog.open(VacancyDialogComponent, {
       data: {companyId: company.id, vacancy: vacancy || {}},
       width: '400px'
@@ -124,7 +122,7 @@ export class BackofficeEmployeeViewComponent implements OnInit {
     this.vacancyService.addVacancy(companyId, vacancy).subscribe({
       next: () => {
         this.loadCompanies();
-        console.log('Vacancy added successfully.');
+        alert('Vacancy added successfully.');
       },
       error: (err) => console.error('Failed to add vacancy', err),
     });
@@ -134,19 +132,21 @@ export class BackofficeEmployeeViewComponent implements OnInit {
     this.vacancyService.updateVacancy(companyId, vacancy).subscribe({
       next: () => {
         this.loadCompanies();
-        console.log('Vacancy updated successfully.');
+        alert('Vacancy updated successfully.');
       },
       error: (err) => console.error('Failed to update vacancy', err),
     });
   }
 
-  deleteVacancy(companyId: string, vacancyId: string): void {
-    this.vacancyService.deleteVacancy(companyId, vacancyId).subscribe({
+  deleteVacancy(company: Company, vacancy: Vacancy): void {
+    this.vacancyService.deleteVacancy(company.id, vacancy.id).subscribe({
       next: () => {
+        alert('Vacancy deleted successfully');
         this.loadCompanies();
-        console.log('Vacancy deleted successfully.');
       },
-      error: (err) => console.error('Failed to delete vacancy', err),
+      error: (err) => {
+        console.error('Failed to delete vacancy', err);
+      }
     });
   }
 }
