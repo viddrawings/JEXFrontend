@@ -1,0 +1,48 @@
+{
+  "companies": [
+    {
+      "id": "1",
+      "name": "JEX",
+      "address": "123 Main Street",
+      "vacancies": [
+        {
+          "id": "1",
+          "title": "Frontend Developer",
+          "description": "Build web apps",
+          "active": true
+        },
+        {
+          "id": "2",
+          "title": "Backend Developer",
+          "description": "Build APIs",
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Apple",
+      "address": "456 Maple Street",
+      "vacancies": [
+        {
+          "id": "3",
+          "title": "iOS Developer",
+          "description": "Build iOS apps",
+          "active": true
+        },
+        {
+          "id": "4",
+          "title": "macOS Developer",
+          "description": "Build macOS apps",
+          "active": false
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Freddy",
+      "address": "789 Elm Street",
+      "vacancies": []
+    }
+  ]
+}
