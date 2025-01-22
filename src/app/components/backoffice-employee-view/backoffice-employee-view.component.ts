@@ -34,7 +34,7 @@ import {CompanyDialogComponent} from '../company/company-dialog/company-dialog.c
     MatHeaderRow,
     MatHeaderRowDef,
     MatRow,
-    MatRowDef
+    MatRowDef,
   ],
   templateUrl: './backoffice-employee-view.component.html',
 })
@@ -52,15 +52,13 @@ export class BackofficeEmployeeViewComponent implements OnInit {
   ngOnInit(): void {
     this.loadCompanies();
   }
-
-  // Load companies from the service
+  
   loadCompanies(): void {
-    this.companyService.getAllCompanies().subscribe(companies => {
+    this.companyService.getAllCompanies().subscribe((companies: Company[]) => {
       this.companies = companies;
     });
   }
 
-  // Open dialog to create/edit a company
   openCompanyDialog(company?: Company): void {
     const dialogRef = this.dialog.open(CompanyDialogComponent, {
       data: company || {},
@@ -68,13 +66,10 @@ export class BackofficeEmployeeViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        if (company) {
-          this.updateCompany(result);
-        } else {
-          this.addCompany(result);
-        }
-      }
+      if (!result) return;
+
+      const action = company ? this.updateCompany : this.addCompany;
+      action.call(this, result);
     });
   }
 
@@ -103,13 +98,10 @@ export class BackofficeEmployeeViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        if (vacancy) {
-          this.updateVacancy(company.id, result);
-        } else {
-          this.addVacancy(company.id, result);
-        }
-      }
+      if (!result) return;
+
+      const action = vacancy ? this.updateVacancy : this.addVacancy;
+      action.call(this, company.id, result);
     });
   }
 
