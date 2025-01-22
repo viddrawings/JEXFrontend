@@ -7,10 +7,18 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 To start a local development server, run:
 
 ```bash
-ng serve
+npm run start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+To start the mocked backend, run:
+
+```bash
+npm run backend
+```
+
+The db.json file will be updated during the demo, so you can see the changes in the frontend. To make life a little easier, db_copy.json had been included as a copy of the original db.json file so the demo can be reset to the initial database data if necessary.
 
 ## Code scaffolding
 

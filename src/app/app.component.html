@@ -1,11 +1,10 @@
-<mat-tab-group>
-  <!-- Backoffice Employee Tabs -->
-  <mat-tab label="Backoffice Employee">
-    <app-backoffice-employee-view></app-backoffice-employee-view>
-  </mat-tab>
+<nav>
+  <button mat-button routerLink="/backoffice-employee" routerLinkActive="active">
+    Backoffice Employee
+  </button>
+  <button mat-button routerLink="/web-user" routerLinkActive="active">
+    Web User
+  </button>
+</nav>
 
-  <!-- Web User Tab -->
-  <mat-tab label="Web User">
-    <app-web-user-view></app-web-user-view>
-  </mat-tab>
-</mat-tab-group>
+<router-outlet></router-outlet>

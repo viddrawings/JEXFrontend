@@ -1,13 +1,10 @@
 import {Component} from '@angular/core';
-import {MatTab, MatTabGroup} from '@angular/material/tabs';
-import {WebUserViewComponent} from './components/web-user-view/web-user-view.component';
-import {
-  BackofficeEmployeeViewComponent
-} from './components/backoffice-employee-view/backoffice-employee-view.component';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  imports: [MatTabGroup, MatTab, WebUserViewComponent, BackofficeEmployeeViewComponent],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet, MatButton],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
