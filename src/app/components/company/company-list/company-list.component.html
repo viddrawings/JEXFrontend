@@ -1,0 +1,34 @@
+<div class="company-list-section">
+  <h1>Companies with Active Vacancies</h1>
+  <table mat-table [dataSource]="filteredCompanies" class="mat-elevation-z8">
+
+    <!-- Company Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name</th>
+      <td mat-cell *matCellDef="let company"> {{ company.name }}</td>
+    </ng-container>
+
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> Address</th>
+      <td mat-cell *matCellDef="let company"> {{ company.address }}</td>
+    </ng-container>
+
+    <!-- Vacancies Column -->
+    <ng-container matColumnDef="vacancies">
+      <th mat-header-cell *matHeaderCellDef> Active Vacancies</th>
+      <td mat-cell *matCellDef="let company">
+        <ul>
+          @for (vacancy of company.vacancies; track $index) {
+            <li>
+              {{ vacancy.title }}
+            </li>
+          }
+        </ul>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

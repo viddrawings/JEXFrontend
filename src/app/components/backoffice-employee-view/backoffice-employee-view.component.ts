@@ -12,7 +12,6 @@ import {VacancyManagementComponent} from '../vacancy/vacancy-management/vacancy-
     VacancyManagementComponent
   ],
   templateUrl: './backoffice-employee-view.component.html',
-  styleUrl: './backoffice-employee-view.component.css'
 })
 export class BackofficeEmployeeViewComponent {
 }
