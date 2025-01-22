@@ -1,18 +1,42 @@
+<div class="actions">
+  <button mat-raised-button color="primary" (click)="openCompanyDialog()">
+    Add Company
+  </button>
+</div>
+
 <mat-table [dataSource]="companies" class="mat-elevation-z8">
+
+  <!-- Company Name Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Company Name</mat-header-cell>
     <mat-cell *matCellDef="let company">{{ company.name }}</mat-cell>
   </ng-container>
 
+  <!-- Address Column -->
   <ng-container matColumnDef="address">
     <mat-header-cell *matHeaderCellDef> Address</mat-header-cell>
     <mat-cell *matCellDef="let company">{{ company.address }}</mat-cell>
   </ng-container>
 
+  <!-- Vacancies Column -->
   <ng-container matColumnDef="vacancies">
     <mat-header-cell *matHeaderCellDef> Vacancies</mat-header-cell>
     <mat-cell *matCellDef="let company">
-      <button mat-button (click)="openVacancyDialog(company)">Manage Vacancies</button>
+      <div>
+        <ul>
+          @for (vacancy of company.vacancies; track $index) {
+            <li>
+              {{ vacancy.title }}
+            </li>
+            <button mat-button (click)="openVacancyDialog(company, vacancy)">Edit</button>
+            <button mat-button (click)="deleteVacancy(company, vacancy)">Delete</button>
+          }
+        </ul>
+        <!-- Add Vacancy Button -->
+        <button mat-raised-button color="primary" (click)="openVacancyDialog(company)">
+          Add Vacancy
+        </button>
+      </div>
     </mat-cell>
   </ng-container>
 

@@ -1,1 +1,29 @@
-<p>vacancy-dialog works!</p>
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Vacancy' : 'Add New Vacancy' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="vacancyForm">
+    <mat-form-field appearance="fill" class="full-width">
+      <label>Title</label>
+      <input matInput formControlName="title"/>
+      @if (vacancyForm.get('title')?.invalid && vacancyForm.get('title')?.touched) {
+        <div class="error">
+          Title is required.
+        </div>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <label>Description</label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="active">Active</mat-checkbox>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="vacancyForm.invalid">
+    {{ isEditMode ? 'Save Changes' : 'Create Vacancy' }}
+  </button>
+</mat-dialog-actions>

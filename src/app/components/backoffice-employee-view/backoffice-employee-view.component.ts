@@ -35,6 +35,7 @@ import {CompanyDialogComponent} from '../company/company-dialog/company-dialog.c
     MatHeaderRowDef,
     MatRow,
     MatRowDef,
+
   ],
   templateUrl: './backoffice-employee-view.component.html',
 })
@@ -52,7 +53,7 @@ export class BackofficeEmployeeViewComponent implements OnInit {
   ngOnInit(): void {
     this.loadCompanies();
   }
-  
+
   loadCompanies(): void {
     this.companyService.getAllCompanies().subscribe((companies: Company[]) => {
       this.companies = companies;
@@ -74,24 +75,38 @@ export class BackofficeEmployeeViewComponent implements OnInit {
   }
 
   addCompany(company: Company): void {
-    this.companyService.createCompany(company).subscribe(() => {
-      this.loadCompanies();
+    this.companyService.createCompany(company).subscribe({
+      next: () => {
+        this.loadCompanies();
+        console.log('Company added successfully.');
+      },
+      error: (err) => console.error('Failed to add company', err),
     });
   }
 
   updateCompany(company: Company): void {
-    this.companyService.updateCompany(company).subscribe(() => {
-      this.loadCompanies();
+    this.companyService.updateCompany(company).subscribe({
+      next: () => {
+        this.loadCompanies();
+        console.log('Company updated successfully.');
+      },
+      error: (err) => console.error('Failed to update company', err),
     });
   }
 
   deleteCompany(company: Company): void {
-    this.companyService.deleteCompany(company.id).subscribe(() => {
-      this.loadCompanies();
+    this.companyService.deleteCompany(company.id).subscribe({
+      next: () => {
+        this.loadCompanies();
+        console.log('Company deleted successfully.');
+      },
+      error: (err) => console.error('Failed to delete company', err),
     });
   }
 
+
   openVacancyDialog(company: Company, vacancy?: Vacancy): void {
+    console.log(company.id);
     const dialogRef = this.dialog.open(VacancyDialogComponent, {
       data: {companyId: company.id, vacancy: vacancy || {}},
       width: '400px'
@@ -106,20 +121,32 @@ export class BackofficeEmployeeViewComponent implements OnInit {
   }
 
   addVacancy(companyId: string, vacancy: Vacancy): void {
-    this.vacancyService.addVacancy(companyId, vacancy).subscribe(() => {
-      this.loadCompanies();
+    this.vacancyService.addVacancy(companyId, vacancy).subscribe({
+      next: () => {
+        this.loadCompanies();
+        console.log('Vacancy added successfully.');
+      },
+      error: (err) => console.error('Failed to add vacancy', err),
     });
   }
 
   updateVacancy(companyId: string, vacancy: Vacancy): void {
-    this.vacancyService.updateVacancy(companyId, vacancy).subscribe(() => {
-      this.loadCompanies();
+    this.vacancyService.updateVacancy(companyId, vacancy).subscribe({
+      next: () => {
+        this.loadCompanies();
+        console.log('Vacancy updated successfully.');
+      },
+      error: (err) => console.error('Failed to update vacancy', err),
     });
   }
 
-  deleteVacancy(companyId: string, vacancy: Vacancy): void {
-    this.vacancyService.deleteVacancy(companyId, vacancy.id).subscribe(() => {
-      this.loadCompanies();
+  deleteVacancy(companyId: string, vacancyId: string): void {
+    this.vacancyService.deleteVacancy(companyId, vacancyId).subscribe({
+      next: () => {
+        this.loadCompanies();
+        console.log('Vacancy deleted successfully.');
+      },
+      error: (err) => console.error('Failed to delete vacancy', err),
     });
   }
 }

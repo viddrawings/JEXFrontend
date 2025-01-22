@@ -1,1 +1,32 @@
-<p>company-dialog works!</p>
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Company' : 'Add New Company' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="companyForm">
+    <mat-form-field appearance="fill" class="full-width">
+      <label>Company Name</label>
+      <input matInput formControlName="name"/>
+      @if (companyForm.get('name')?.invalid && companyForm.get('name')?.touched) {
+        <div class="error">
+          Company name is required.
+        </div>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <label>Address</label>
+      <input matInput formControlName="address"/>
+      @if (companyForm.get('address')?.invalid && companyForm.get('address')?.touched) {
+        <div class="error">
+          Address is required.
+        </div>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="companyForm.invalid">
+    {{ isEditMode ? 'Save Changes' : 'Create Company' }}
+  </button>
+</mat-dialog-actions>
