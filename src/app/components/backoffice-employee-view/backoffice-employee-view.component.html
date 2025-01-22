@@ -1,6 +1,29 @@
-<mat-tab label="Company Management">
-  <app-company-management></app-company-management>
-</mat-tab>
-<mat-tab label="Vacancy Management">
-  <app-vacancy-management></app-vacancy-management>
-</mat-tab>
+<mat-table [dataSource]="companies" class="mat-elevation-z8">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Company Name</mat-header-cell>
+    <mat-cell *matCellDef="let company">{{ company.name }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="address">
+    <mat-header-cell *matHeaderCellDef> Address</mat-header-cell>
+    <mat-cell *matCellDef="let company">{{ company.address }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="vacancies">
+    <mat-header-cell *matHeaderCellDef> Vacancies</mat-header-cell>
+    <mat-cell *matCellDef="let company">
+      <button mat-button (click)="openVacancyDialog(company)">Manage Vacancies</button>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
+    <mat-cell *matCellDef="let company">
+      <button mat-button (click)="openCompanyDialog(company)">Edit</button>
+      <button mat-button (click)="deleteCompany(company)">Delete</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

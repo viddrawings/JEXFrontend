@@ -1,7 +1,7 @@
 import {Vacancy} from './vacancy.model';
 
 export interface Company {
-  id: number;
+  id: string;
   name: string;
   address: string;
   vacancies: Vacancy[];

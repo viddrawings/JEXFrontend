@@ -24,11 +24,10 @@ export class VacancyService {
 
   updateVacancy(
     companyId: string,
-    vacancyId: string,
     vacancy: Partial<Vacancy>
   ): Observable<Company> {
     return this.http.put<Company>(
-      `${this.apiUrl}/${companyId}/vacancies/${vacancyId}`,
+      `${this.apiUrl}/${companyId}/vacancies/${vacancy.id}`,
       vacancy
     );
   }
