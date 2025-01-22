@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {WebUserViewComponent} from './components/web-user-view/web-user-view.component';
+import {
+  BackofficeEmployeeViewComponent
+} from './components/backoffice-employee-view/backoffice-employee-view.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [MatTabGroup, MatTab, WebUserViewComponent, BackofficeEmployeeViewComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'JEXFrontend';
+  title: string = 'Job Portal';
 }
