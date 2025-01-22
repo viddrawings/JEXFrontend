@@ -43,8 +43,17 @@ export class CompanyListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.companyService.getCompaniesWithActiveVacancies().subscribe((companies: Company[]) => {
-      this.filteredCompanies.data = companies;
+    // Subscribe to the BehaviorSubject to handle real-time updates
+    this.companyService.companies$.subscribe((companies) => {
+      this.filteredCompanies.data = companies
+        .map((company) => ({
+          ...company,
+          vacancies: company.vacancies?.filter((vacancy) => vacancy.active) || []  // Filter only active vacancies
+        }))
+        .filter((company) => company.vacancies.length > 0);  // Only keep companies with at least one active vacancy
     });
+
+    // Trigger the initial fetch to populate the BehaviorSubject
+    this.companyService.fetchCompanies();
   }
 }

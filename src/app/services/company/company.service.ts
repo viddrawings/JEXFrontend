@@ -1,18 +1,26 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Company} from '../../models/company.model';
-import {Vacancy} from '../../models/vacancy.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
+  private companiesSubject = new BehaviorSubject<Company[]>([]);
+  companies$ = this.companiesSubject.asObservable();
+
   private apiUrl = 'http://localhost:3000/companies';
 
   constructor(
     private http: HttpClient
   ) {
+  }
+
+  fetchCompanies(): void {
+    this.http.get<Company[]>(this.apiUrl).subscribe((companies) => {
+      this.companiesSubject.next(companies);
+    });
   }
 
   getAllCompanies(): Observable<Company[]> {
@@ -21,19 +29,6 @@ export class CompanyService {
 
   getCompanyById(id: string): Observable<Company> {
     return this.http.get<Company>(`${this.apiUrl}/${id}`);
-  }
-
-  getCompaniesWithActiveVacancies(): Observable<Company[]> {
-    return this.http.get<Company[]>(this.apiUrl).pipe(
-      map((companies: Company[]) =>
-        companies
-          .map((company: Company) => ({
-            ...company,
-            vacancies: company.vacancies?.filter((vacancy: Vacancy) => vacancy.active) || [],
-          }))
-          .filter((company) => company.vacancies.length > 0) // Only keep companies with at least one active vacancy
-      )
-    );
   }
 
   createCompany(company: Partial<Company>): Observable<Company> {

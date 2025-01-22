@@ -75,7 +75,7 @@ export class CreateVacancyComponent implements OnInit {
       const {companyId, ...vacancy} = this.vacancyForm.value;
       this.vacancyService.addVacancy(companyId, vacancy as Vacancy).subscribe(() => {
         alert('Vacancy added successfully!');
-        this.getCompanies();
+        this.companyService.fetchCompanies(); // Refresh companies to reflect the updated data
         this.vacancyForm.reset({active: true});
       });
     }
