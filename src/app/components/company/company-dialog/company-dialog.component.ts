@@ -25,7 +25,6 @@ import {MatButton} from '@angular/material/button';
     MatButton
   ],
   templateUrl: './company-dialog.component.html',
-  styleUrl: './company-dialog.component.css'
 })
 export class CompanyDialogComponent {
   companyForm: FormGroup;

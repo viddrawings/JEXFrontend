@@ -26,7 +26,6 @@ import {MatButton} from '@angular/material/button';
     MatButton
   ],
   templateUrl: './vacancy-dialog.component.html',
-  styleUrl: './vacancy-dialog.component.css'
 })
 export class VacancyDialogComponent {
   vacancyForm: FormGroup;
